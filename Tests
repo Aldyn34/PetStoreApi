@@ -1,0 +1,6 @@
+from api.api import PetFriends
+
+
+class PetFriends:
+   def display_message(self):
+     print('Welcome to PetFriends!')
