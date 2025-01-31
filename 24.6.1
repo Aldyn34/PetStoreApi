@@ -1,0 +1,46 @@
+import requests
+
+BASE_URL = "https://petstore.swagger.io/v2/pet"
+
+# Получить список всех питомцев
+def get_pets():
+    response = requests.get(f"{BASE_URL}/findByStatus?status=available")
+    print(f"GET /findByStatus?status=available")
+    print(f"Статус-код: {response.status_code}")
+    try:
+        pets = response.json()
+        print("Список питомцев:")
+        print(pets)
+    except ValueError:
+        print("Ответ не в формате JSON!")
+        print(response.text)
+
+get_pets()
+
+
+def add_pet():
+    new_pet = {
+        "id": 0,
+        "name": "Барсик",
+        "category": {
+            "id": 0,
+            "name": "Кошки"
+        },
+        "photoUrls": ["https://example.com/photo.jpg"],
+        "tags": [{"id": 1, "name": "cute"}],
+        "status": "available"
+    }
+
+    response = requests.post(f"{BASE_URL}", json=new_pet)
+    print(f"POST /pet")
+    print(f"Статус-код: {response.status_code}")
+    try:
+        result = response.json()
+        print("Ответ от сервера:")
+        print(result)
+    except ValueError:
+        print("Ответ не в формате JSON!")
+        print(response.text)
+
+add_pet()
+
